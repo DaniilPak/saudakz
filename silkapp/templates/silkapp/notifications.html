@@ -1,0 +1,98 @@
+{% extends 'silkapp/base.html' %}
+{% block content %}
+{% load static %}
+    <title>{{ title }}</title>
+    <!--<link rel="stylesheet" href="{% static 'silkapp/style.css' %}"> -->
+    <style>
+        .notif-con {
+            position: absolute;
+            top: -15px;
+            left: 0px;
+        }
+        .notif-wrap {
+            display: block;
+            position: relative;
+            min-width: 400px;
+            min-height: 70px;
+            padding: 10px;
+            margin-top: 15px;
+            border: 1px solid rgb(194, 191, 191);
+            border-radius: 5px;
+        }
+        .notif-text {
+        }
+        .notif-chat {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="all">
+        <!--head menu-->
+        {% include 'silkapp/head.html' %}
+        <!--head menu-->
+
+        <div class="fat-panel">
+        
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+                <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="{% url 'settings' %}" class="nav-link link-dark" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Профиль
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'notifications' %}" class="nav-link active" aria-current="page">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                    Уведомления
+                    <div class="red-circle"></div>
+                    </a>
+                </li>
+                {% if user.first_name == '1' %}
+                <li>
+                    <a href="{% url 'goods' %}" class="nav-link link-dark">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                    Мои товары
+                    </a>
+                </li>
+                {% endif %}
+                {% if user.first_name == '0' %}
+                <li>
+                    <a href="{% url 'bids' %}" class="nav-link link-dark">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                    Мои заявки
+                    </a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="{% url 'chatview' %}" class="nav-link link-dark">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                    Чаты
+                    <div class="red-circle"></div>
+                    </a>
+                </li>
+                </ul>
+            </div>
+            
+            <div class="right-setting">
+                <div class="notif-con">
+                    {% for n in my_notifs %}
+                    <div class="notif-wrap">
+                        <div class="notif-text">{{ n.title }}</div>
+                        <a href="{% url 'contact' n.initiator.username %}">
+                        <button
+                            type="button" class="btn btn-success notif-chat">Чат</button>
+                        </a>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+        </div>   
+    </div>
+{% endblock content %}

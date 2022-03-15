@@ -1,0 +1,104 @@
+{% extends 'silkapp/base.html' %}
+{% block content %}
+{% load static %}
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ title }}">
+</head>
+<body>
+<div class="all">
+  <!--head menu-->
+  {% include 'silkapp/head.html' %}
+  <!--head menu-->
+
+  <div class="main-panel">
+    <div class="breadcumb">
+      <div class="bc">
+        <a href="{% url 'index' %}">
+          Главная
+        </a>
+        {% if category_bread %}
+        >
+          <a href="{% url 'category_view' category_bread.slug %}">
+            {{ category_bread.title }}
+          </a>
+        {% endif %}
+
+        {% if sub_category %}
+        >
+          <a href="{% url 'category_view' sub_category.category.slug %}">
+            {{ sub_category.category.title }}
+          </a>
+        >
+          <a href="{% url 'products_view' sub_category.slug %}">
+            {{ sub_category.title }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!--left menu-->
+    {% include 'silkapp/leftmenu.html' %}
+    <!--left menu-->
+
+    <!--last added products-->
+    {% if last_prods %}
+    <div class="right-p">
+      <h1 style="position: absolute; left: 5px; top: -25px; font-size: 35px; font-weight: bold;">Товары на сайте</h1>
+      {% for lp in last_prods %}
+        <a href="{% url 'product_overview' lp.slug %} ">
+          <span class="product-block">
+            <div class="category-image"></div>
+            <img src="/{{ lp.img.all.0.img }}" class="category-image">
+            <div class="letter">{{ lp.title }}</div>
+            <div class="category-price">2000 <span class="valuta">₸</span></div>
+            <img src="{% static 'silkapp/star.svg' %}" alt="Rating star" class="star-rate">
+            <div class="star-num">{{ lp.rate }}</div>
+            <img src="{% static 'silkapp/comment.svg' %}" alt="Rating star" class="comment-rate">
+            <div class="comment-num">{{ lp.comment.all.count }}</div>
+          </span>
+        </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if object %}
+    <div class="right-p">
+      {% for catalog in object %}
+      <a href="{% url 'products_view' catalog.slug %}"> 
+        <span class="link-block">
+          <div class="category-image"></div>
+          <div class="letter">{{ catalog.title }}</div>
+        </span>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if products %}
+    <div class="right-p">
+      {% for prod in products %}
+      <a href="{% url 'product_overview' prod.slug %} ">
+        <span class="product-block">
+          <div class="category-image"></div>
+          <img src="/{{ prod.img.all.0.img }}" class="category-image">
+          <div class="letter">{{ prod.title }}</div>
+          <div class="category-price">2000 <span class="valuta">₸</span></div>
+          <img src="{% static 'silkapp/star.svg' %}" alt="Rating star" class="star-rate">
+          <div class="star-num">{{ prod.rate }}</div>
+          <img src="{% static 'silkapp/comment.svg' %}" alt="Rating star" class="comment-rate">
+          <div class="comment-num">{{ prod.comment.all.count }}</div>
+        </span>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="right-p">
+
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock content %}

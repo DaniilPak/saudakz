@@ -1,0 +1,18 @@
+{% load static %}
+<div class="top-panel">
+    <a href="{% url 'index' %}">
+        <img src="{% static 'silkapp/sauda.svg' %}" alt="Silkapp kz logo" class="silkapp-logo">
+    </a>
+    <div class="mobile-menu" id="mobile-menu-button">
+        <button type="button" class="btn btn-success">Каталог</button>
+    </div>
+    <div class="login-panel">
+        {% if not isauth %}
+            <button type="button" class="btn btn-success" onclick="window.location='/user/sign'">Войти</button>
+        {% endif %}
+        {% if user.username %}
+            <button type="button" class="btn btn-warning" onclick="window.location='/user/settings'">{{ user.username }}</button>
+            <button type="button" class="btn btn-danger" onclick="window.location='/user/logout'">Выйти</button>
+        {% endif %}
+    </div>
+</div>

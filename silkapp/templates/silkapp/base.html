@@ -10,10 +10,124 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!--Phone mask-->
+    <script src="https://unpkg.com/imask"></script>
+
     <style>
+
+    /*Design code ---->*/
+
+    .login-panel-version {
+      display: none;
+    }
+
+    .result-search {
+      display: block;
+      cursor: pointer;
+    }
+
+    .result-search:hover {
+      color: var(--citiorange);
+    }
+
+    .result-search + .result-search {
+      margin-top: 15px;
+    }
+
+    span + span {
+      margin-left: 10px;
+    }
+
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1; 
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: var(--citilinkgray); 
+    }
+
+    .nested li {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    
+
+    .catalog-menu {
+      position: fixed;
+      z-index: 2;
+      height: 100%;
+      width: 400px;
+      background-color: rgb(255, 255, 255);
+      top: 0;
+      left: 0;
+      overflow-y: scroll;
+    }
+
+    .search-but-mobile {
+      background-color: white;
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+
+    .catalog-but {
+      background-color: white;
+      border: 1px solid var(--citiorange);
+      width: fit-content;
+      padding: 10px;
+      padding-bottom: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 200ms;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+    }
+
+    .catalog-but:hover {
+      background-color: var(--citiorange);
+      color: white;
+    }
+
+    .finder {
+      position: absolute;
+      left: 270px;
+      top: 10px;
+      width: 60%;
+      height: 35px;
+    }
+
+    .finder-inp {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-bottom: 1px solid var(--citilinkgray);
+      font-size: 20px;
+    }
+
+    .finder-inp:focus {
+      border-bottom: 1px solid var(--citiorange);
+    }
+
+    /*Design code <-----*/
 
     :root {
         --citiorange: #fe7200;
+        --citilinkgray: #c2c2c5;
     }
 
     .all {
@@ -31,6 +145,8 @@
     }
 
     .box {
+        font-size: 16px;
+        font-weight: bold;
         cursor: pointer;
         -webkit-user-select: none; /* Safari 3.1+ */
         -moz-user-select: none; /* Firefox 2+ */
@@ -114,8 +230,6 @@
         border-spacing: 0;
     }
 
-
-
     .top-panel {
         position: relative;
         width: 80%;
@@ -141,13 +255,40 @@
         width: auto;
         position: absolute;
         left: 0px;
-        top: 10px;
+        top: 15px;
+    }
+
+    /*Fonts*/
+
+    {% load static %}
+
+    @font-face {
+      font-family: 'PT Root UI';
+      src: url('{% static 'silkapp/PTRootUI-Regular.woff2' %}') format('woff2'),
+          url('{% static 'silkapp/PTRootUI-Regular.woff' %}') format('woff'),
+          url('{% static 'silkapp/PTRootUI-Regular.ttf' %}') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    .pt-root {
+      font-family: 'PT Root UI';
+      font-size: 14px;
+      color: #5d5d64;
+    }
+
+     /*Fonts*/
+
+    /*On hover orange*/
+    .on-hover-orange:hover {
+      filter: invert(42%) sepia(95%) saturate(1968%) hue-rotate(3deg) brightness(107%) contrast(103%);
     }
 
     .login-panel {
         position: absolute;
         right: 0px;
-        top: 10px;
+        top: 20px;
         height: 50px;
         width: auto;
     }
@@ -156,6 +297,7 @@
         position: relative;
         width: 80%;
         margin: auto;
+        margin-top: 40px;
     }
 
     .left-panel {
@@ -181,8 +323,7 @@
 
     .right-p {
         position: absolute;
-        width: 80%;
-        left: 200px;
+        width: 100%;
     }
 
     .link-block {
@@ -204,8 +345,7 @@
 
     .link-block .letter {
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 25px;
     }
 
     .link-block .category-image {
@@ -224,7 +364,7 @@
     .breadcumb .bc {
         position: absolute;
         top: 10px;
-        left: 0px;
+        left: 10px;
     }
 
 
@@ -234,10 +374,11 @@
         position: relative;
         display: inline-block;
         width: 250px;
-        height: 380px;
-        text-align: center;
+        height: 350px;
+        text-align: start;
         padding: 10px;
         cursor: pointer;
+        padding: 25px;
     }
 
     .product-block:hover {
@@ -247,22 +388,22 @@
 
     .product-block .letter {
         position: absolute;
-        bottom: 180px;
-        left: 5px;
+        top: 160px;
+        left: 25px;
     }
 
     .product-block .star-rate {
         width: 15px;
         height: auto;
         position: absolute;
-        bottom: 230px;
-        left: 10px;
+        bottom: 205px;
+        left: 20px;
     }
 
     .product-block .star-num {
         position: absolute;
-        bottom: 228px;
-        left: 30px;
+        bottom: 203px;
+        left: 40px;
         font-size: 15px;
     }
 
@@ -270,14 +411,14 @@
         width: 15px;
         height: auto;
         position: absolute;
-        bottom: 228px;
-        left: 60px;
+        bottom: 203px;
+        left: 70px;
     }
 
     .product-block .comment-num {
         position: absolute;
-        bottom: 228px;
-        left: 80px;
+        bottom: 203px;
+        left: 90px;
         font-size: 15px;
     }
 
@@ -287,15 +428,15 @@
 
     .product-block .category-image {
         position: absolute;
-        max-width: 90%;
+        max-width: 200px;
         max-height: 100px;
-        left: 5px;
+        left: 25px;
         top: 20px;
     }
 
     .product-block .category-price {
         position: absolute;
-        bottom: 50px;
+        bottom: 20px;
         font-size: 30px;
     }
 
@@ -329,7 +470,7 @@
     .product-connect {
         cursor: pointer;
         position: absolute;
-        top: 280px;
+        top: 260px;
         left: var(--product-left-all);  
     }
 
@@ -339,10 +480,25 @@
 
     .product-desc {
         position: absolute;
-        top: 360px;
+        top: 370px;
         left: var(--product-left-all);
         font-size: 20px;
     }
+
+    .product-owner-phone {
+      position: absolute;
+      top: 310px;
+      left: var(--product-left-all);
+      font-size: 20px;
+    }
+
+    .product-owner-email {
+      position: absolute;
+      top: 340px;
+      left: var(--product-left-all);
+      font-size: 20px;
+    }
+
 
 
 
@@ -743,14 +899,127 @@
         width: 280px;
       }
 
+      .catalog-n-searchbar-vis {
+        display: none;
+      }
+
+      .big-carousel {
+        width: 75%;
+      }
+
+      .big-right-banner {
+        width: 24%;
+        background-color: black;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      .adaptive-mobile {
+        margin-top: 0px;
+      }
+
       @media screen and (max-width: 900px) {
+          .product-owner-email {
+            position: absolute;
+            top: 210px;
+            left: 0px;
+            font-size: 20px;
+          }
+
+          .product-owner-phone {
+            position: absolute;
+            top: 240px;
+            left: 0px;
+            font-size: 20px;
+          }
+
+          .catalog-menu {
+            position: fixed;
+            z-index: 2;
+            height: 100%;
+            width: 100%;
+            background-color: rgb(255, 255, 255);
+            top: 0;
+            left: 0;
+            overflow-y: scroll;
+          }
+
+          .product-block .category-image {
+            position: absolute;
+            max-width: 100px;
+            max-height: 100px;
+            left: 25px;
+            top: 20px;
+          }
+
+          .close-btn {
+            right: 10%;
+            transform: translateX(-10%);
+          }
+
+          .login-panel-version {
+            display: block;
+          }
+
+          .adaptive-mobile {
+            margin-top: 400px;
+          }
+
+          .big-right-banner {
+            display: none;
+          }
+
+          .big-carousel {
+            width: 100%;
+          }
+
+          .breadcumb {
+            width: 100%;
+            height: 40px;
+            position: relative;
+            margin-top: -50px;
+          }
+
+          .finder {
+            position: absolute;
+            left: 25%;
+            transform: translateX(-25%);
+            top: 20px;
+            width: 70%;
+            height: 35px;
+          }
+
           .top-panel {
             width: 100%;
           }
 
+          .catalog-n-searchbar {
+            display: none;
+          }
+
+          .catalog-n-searchbar-vis {
+            display: block;
+          }
+
+          .catalog-but {
+            border: none;
+            left: 10px;
+            top: -65px;
+          }
+
+          .catalog-but:hover {
+            background-color: transparent;
+          }
+
+          .search-but-mobile {
+            right: 15px;
+            top: -55px;
+          }
+
           .silkapp-logo {
-            left: 80%;
-            transform: translateX(-80%);
+            left: 50%;
+            transform: translateX(-50%);
           }
 
           .login-panel {
@@ -778,18 +1047,12 @@
             left: 0;
           }
 
-          .main-panel {
-            position: relative;
-            width: 90%;
-            margin: auto;
-          }
-
           .link-block {
             width: 90%;
           }
 
           .product-block {
-            width: 160px;
+            width: 100%;
             margin-left: 0px;
           }
 
@@ -811,17 +1074,17 @@
           }
 
           .product-price {
-            top: 130px;
+            top: 90px;
             left: 0px;
           }
 
           .product-connect {
-            top: 200px;
+            top: 150px;
             left: 0px; 
           }
 
           .product-desc {
-              top: 250px;
+              top: 290px;
               left: 0px;
               max-height: 200px;
               overflow-y: scroll;
@@ -839,9 +1102,11 @@
           }
 
           .wrap-comment {
-            width: 90%;
+            width: 100%;
             top: 950px;
-            left: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-bottom: 200px;
           }
 
           .comment {
@@ -881,6 +1146,13 @@
 
       }
 
+      .black {
+        color: black;
+      }
+
+      .big {
+        font-size: 30px;
+      }
 
     </style>
     {% block content %}
@@ -912,6 +1184,11 @@
           this.classList.toggle("check-box");
         });
       }
+
+      $('.carousel').carousel({
+        interval: 5000
+      });
+
     </script>
 </body>
 </html>

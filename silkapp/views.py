@@ -17,6 +17,10 @@ from django.views.generic.edit import FormView
 # Multifilter
 from django.db.models import Q
 
+# Seria
+from django.core import serializers
+import json
+
 # Create your views here.
 
 def index(request):
@@ -33,13 +37,19 @@ def index(request):
     else: 
         isauth = False
 
+    # Получаем рекомендуемые товары
+
     last_prods = Product.objects.all()[:20]
+
+    # Получаем категории
+    category_object = SubCategory.objects.all()[:15]
 
     context = {
         'title': 'Каталог товаров - Дерево',
         'all_catalogs': all_catalogs,
         'user': request.user,
         'isauth': isauth,
+        'object': category_object,
         'last_prods': last_prods,
     }
     return render(request, 'silkapp/index.html', context)
@@ -78,10 +88,9 @@ def category_view(request, slug):
         'user': request.user,
         'isauth': isauth,
     }
-    return render(request, 'silkapp/index.html', context)
+    return render(request, 'silkapp/sub_category_overview.html', context)
 
 def products_view(request, slug):
-
     catalog = Catalog.objects.all()
     all_catalogs = []
     for cat in catalog:
@@ -111,7 +120,7 @@ def products_view(request, slug):
         'user': request.user,
         'isauth': isauth,
     }
-    return render(request, 'silkapp/index.html', context)
+    return render(request, 'silkapp/products_overview.html', context)
 
 def product_overview(request, product_slug):
     # Default data for left menu
@@ -186,18 +195,19 @@ def mySign(request):
 
 def myRegister(request):
     email = request.POST['email']
-    username = request.POST['username']
+    name = request.POST['name']
     password = request.POST['password']
-    seller = request.POST['seller']
+    phone = request.POST['phone']
+    # seller = request.POST['seller']
 
-    user = User.objects.create_user(username, email, password, first_name=seller)
+    user = User.objects.create_user(email, email, password, first_name=name, last_name=phone)
     user.save()
     login(request, user)
 
     return HttpResponseRedirect(reverse('index'))
 
 def enterAccount(request):
-    user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+    user = authenticate(request, username=request.POST['email'], password=request.POST['password'])
     if user is not None:
         login(request, user)
         # Redirect to a success page.
@@ -474,7 +484,7 @@ def chatUser(request, username):
 def addMsg(request, username):
     usr = User.objects.get(username=username)
     # new msg
-    if request.method == 'POST' and request.POST['message'].strip() is not '':
+    if request.method == 'POST' and request.POST['message'].strip() != '':
         newmsgtxt = request.POST['message']
         try:
             nmsg = ChatMessage(sender=request.user, receiver=usr, text=newmsgtxt)
@@ -492,3 +502,20 @@ def contactButton(request, username):
     chat_friend2 = ChatFriends(friend2=request.user, friend1=usr_to_contact)
     chat_friend2.save()
     return HttpResponseRedirect(reverse('chatuser', kwargs={'username': usr_to_contact.username}))
+
+# Search 
+
+def productSearch(request):
+
+    res = request.GET['keyword']
+    res = str(res).lower()
+
+    search_results = Product.objects.filter(title__icontains=res)[:7]
+
+    json_data_object = serializers.serialize('json', search_results)
+
+    context = {
+        'data': json_data_object,
+    }
+
+    return render(request, 'silkapp/api.html', context)

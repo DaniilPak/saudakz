@@ -3,209 +3,203 @@
 {% load static %}
     <title>{{ title }}</title>
     <style>
-        body{
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Jost', sans-serif;
-            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-        }
-        .main{
-            width: 350px;
-            height: 500px;
-            background: red;
-            overflow: hidden;
-            background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
-            border-radius: 10px;
-            box-shadow: 5px 20px 50px #000;
-        }
-        #chk{
-            display: none;
-        }
-        .signup{
-            position: relative;
-            width:100%;
-            height: 100%;
-        }
-        label{
-            color: #fff;
-            font-size: 2.3em;
-            justify-content: center;
-            display: flex;
-            margin: 60px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: .5s ease-in-out;
-        }
-        input{
-            width: 60%;
-            height: 20px;
-            background: #e0dede;
-            justify-content: center;
-            display: flex;
-            margin: 20px auto;
-            padding: 10px;
-            border: none;
-            outline: none;
-            border-radius: 5px;
-        }
-        button{
-            width: 60%;
-            height: 40px;
-            margin: 10px auto;
-            justify-content: center;
-            display: block;
-            color: #fff;
-            background: #573b8a;
-            font-size: 1em;
-            font-weight: bold;
-            margin-top: 20px;
-            outline: none;
-            border: none;
-            border-radius: 5px;
-            transition: .2s ease-in;
-            cursor: pointer;
-        }
-        button:hover{
-            background: #6d44b8;
-        }
-        .login{
-            height: 460px;
-            background: #eee;
-            border-radius: 60% / 10%;
-            transform: translateY(-180px);
-            transition: .8s ease-in-out;
-        }
-        .login label{
-            color: #573b8a;
-            transform: scale(.6);
-        }
-        
-        #chk:checked ~ .login{
-            transform: translateY(-500px);
-        }
-        #chk:checked ~ .login label{
-            transform: scale(1);	
-        }
-        #chk:checked ~ .signup label{
-            transform: scale(.6);
-        }
+      :root {
+        --left-offset: 50px;
+      }
+
+      .quad {
+        width: 480px;
+        height: 430px;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        z-index: 10;
+        background-color: rgb(255, 255, 255);
+      }
+
+      .sign-register {
+        position: absolute;
+        top: 50px;
+        left: var(--left-offset);
+      }
+      
+      .email-inp {
+        position: absolute;
+        top: 120px;
+        left: var(--left-offset);
+        width: 75%;
+        font-size: 20px;
+        border: none;
+        border-bottom: 1px solid #999;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+      
+      .password-inp {
+        position: absolute;
+        top: 220px;
+        left: var(--left-offset);
+        width: 75%;
+        font-size: 20px;
+        border: none;
+        border-bottom: 1px solid #999;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .sumbit-inp {
+        position: absolute;
+        bottom: var(--left-offset);
+        left: var(--left-offset);
+        width: 75%;
+        font-size: 20px;
+        border: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: white;
+        background-color: #fe7200;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      .sumbit-inp:focus {
+        outline: none;border: none;
+      }
+
+      .quad-register {
+        width: 480px;
+        height: 500px;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        z-index: 10;
+        background-color: rgb(255, 255, 255);
+      }
+
+      .hide {
+        display: none;
+      }
+
+      .pointer {
+        cursor: pointer;
+      }
+
+      .reg-name {
+        position: absolute;
+        top: 120px;
+        left: var(--left-offset);
+        width: 75%;
+        font-size: 20px;
+        border: none;
+        border-bottom: 1px solid #999;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .reg-email {
+        position: absolute;
+        top: 180px;
+        left: var(--left-offset);
+        width: 75%;
+        font-size: 20px;
+        border: none;
+        border-bottom: 1px solid #999;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .reg-password {
+        position: absolute;
+        top: 240px;
+        left: var(--left-offset);
+        width: 75%;
+        font-size: 20px;
+        border: none;
+        border-bottom: 1px solid #999;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .reg-phone {
+        position: absolute;
+        top: 300px;
+        left: var(--left-offset);
+        width: 75%;
+        font-size: 20px;
+        border: none;
+        border-bottom: 1px solid #999;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
 
 
-        .wrapper{
-            display: inline-flex;
-            background: #fff;
-            height: 60px;
-            width: 100%;
-            align-items: center;
-            justify-content: space-evenly;
-            border-radius: 5px;
-            padding: 5px 5px;
-            box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
-          }
-          .wrapper .option{
-            background: #fff;
-            height: 100%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            margin: 0 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 0 10px;
-            border: 2px solid lightgrey;
-            transition: all 0.3s ease;
-          }
-          .wrapper .option .dot{
-            height: 20px;
-            width: 20px;
-            background: #d9d9d9;
-            border-radius: 50%;
-            position: relative;
-          }
-          .wrapper .option .dot::before{
-            position: absolute;
-            content: "";
-            top: 4px;
-            left: 4px;
-            width: 12px;
-            height: 12px;
-            background: #0069d9;
-            border-radius: 50%;
-            opacity: 0;
-            transform: scale(1.5);
-            transition: all 0.3s ease;
-          }
-          input[type="radio"]{
-            display: none;
-          }
-          #option-1:checked:checked ~ .option-1,
-          #option-2:checked:checked ~ .option-2{
-            border-color: #0069d9;
-            background: #0069d9;
-          }
-          #option-1:checked:checked ~ .option-1 .dot,
-          #option-2:checked:checked ~ .option-2 .dot{
-            background: #fff;
-          }
-          #option-1:checked:checked ~ .option-1 .dot::before,
-          #option-2:checked:checked ~ .option-2 .dot::before{
-            opacity: 1;
-            transform: scale(1);
-          }
-          .wrapper .option span{
-            font-size: 15px;
-            color: #808080;
-          }
-          #option-1:checked:checked ~ .option-1 span,
-          #option-2:checked:checked ~ .option-2 span{
-            color: #fff;
-          }
+      @media screen and (max-width: 900px) {
+
+        .quad {
+          width: 90%;
+        }
+
+        .quad-register {
+          width: 90%;
+          margin-bottom: 50px;
+        }
+
+      }
+
 
     </style>
 </head>
 <body>
 
-<div class="main">  	
-    <input type="checkbox" id="chk" aria-hidden="true">
+<div class="fixed-darker" id="fd"></div>
 
-        <div class="signup">
-            <form method="post" action="{% url 'register' %}">
-                {% csrf_token %}
-                <label for="chk" aria-hidden="true">Регистрация</label>
-                <input type="text" name="username" placeholder="Имя пользователя" required="" oninput="this.value=this.value.replace(/[^A-Za-z\s]/g,'');">
-                <input type="email" name="email" placeholder="Адрес электронной почты" required="">
-                <input type="password" name="password" placeholder="Пароль" required="">
-                <div class="wrapper">
-                    <input type="radio" name="seller" id="option-1" value="0" checked required>
-                    <input type="radio" name="seller" id="option-2" value="1">
-                      <label for="option-1" class="option option-1">
-                        <div class="dot"></div>
-                         <span>Я покупатель</span>
-                         </label>
-                      <label for="option-2" class="option option-2">
-                        <div class="dot"></div>
-                         <span>Я продавец</span>
-                      </label>
-                </div>
-                <button>Зарегистрироваться</button>
-            </form>
-        </div>
+<div class="quad pt-root" id="quad-sign">
+  <div class="sign-register black big">Вход / <span id="reg-but" style="color: gray;" class="pointer">Регистрация</span></div>
+    <form method="post" action="{% url 'signin' %}" aria-autocomplete="none" autocomplete="off">
+      {% csrf_token %}
+      <input name="email" type="email" class="email-inp" placeholder="Email">
+      <input name="password" type="password" name="password" class="password-inp" placeholder="Пароль">
 
-        <div class="login">
-            <form method="post" action="{% url 'signin' %}">
-                {% csrf_token %}
-                <label for="chk" aria-hidden="true">Есть аккаунт</label>
-                <input type="username" name="username" placeholder="Имя пользователя" required="">
-                <input type="password" name="password" placeholder="Пароль" required="">
-                <button>Войти</button>
-            </form>
-        </div>
+      <button type="submit" class="sumbit-inp pt-root">Войти</button>
+    </form>
 </div>
 
+<div class="quad-register pt-root hide" id="quad-reg">
+  <div class="sign-register black big"><span id="sign-but" style="color: gray;" class="pointer">Вход</span> / <span>Регистрация</span></div>
+    <form method="post" action="{% url 'register' %}" aria-autocomplete="none" autocomplete="off">
+      {% csrf_token %}
+      <input class="reg-name" type="text" name="name" placeholder="Ваше имя" required="">
+      <input class="reg-email" type="email" name="email" placeholder="Email" required="">
+      <input class="reg-password" type="text" name="password" placeholder="Пароль" required="">
+      <input id="phone-mask" class="reg-phone" type="text" name="phone" placeholder="Номер телефона" required="">
+      <button type="submit" class="sumbit-inp pt-root">Зарегистрироваться</button>
+    </form>
+</div>
+
+<script>
+  var phoneMask = IMask(
+  document.getElementById('phone-mask'), {
+      mask: '+{7}(000)000-00-00'
+  });
+
+  let regbut = document.getElementById('reg-but');
+  let signbut = document.getElementById('sign-but');
+
+  let quadsign = document.getElementById('quad-sign');
+  let quadreg = document.getElementById('quad-reg');
+
+  regbut.addEventListener('click', () => {
+    quadsign.classList.add('hide');
+    quadreg.classList.remove('hide');
+  });
+
+  signbut.addEventListener('click', () => {
+    quadreg.classList.add('hide');
+    quadsign.classList.remove('hide');
+  })
+
+</script>
 
 {% endblock content %}

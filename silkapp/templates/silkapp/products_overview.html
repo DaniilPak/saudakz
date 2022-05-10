@@ -1,0 +1,128 @@
+{% extends 'silkapp/base.html' %}
+{% block content %}
+{% load static %}
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ title }}">
+</head>
+<body>
+<div class="all">
+  <!--head menu-->
+  {% include 'silkapp/head.html' %}
+  <!--head menu-->
+
+  <div class="main-panel pt-root">
+    <div class="breadcumb">
+      <div class="bc">
+        <a href="{% url 'index' %}">
+          Главная
+        </a>
+        {% if category_bread %}
+        /
+          <a href="{% url 'category_view' category_bread.slug %}">
+            {{ category_bread.title }}
+          </a>
+        {% endif %}
+
+        {% if sub_category %}
+        /
+          <a href="{% url 'category_view' sub_category.category.slug %}">
+            {{ sub_category.category.title }}
+          </a>
+        /
+          <a href="{% url 'products_view' sub_category.slug %}">
+            {{ sub_category.title }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!--left menu-->
+    {% include 'silkapp/leftmenu.html' %}
+    <!--left menu-->
+
+    <div class="right-p">
+      <!--Carousel boostrap-->
+      <div style="width: 75%;">
+
+      <!--Popularnie categorie-->
+      <div>
+        <h1 style="
+          font-size: 30px;
+          padding-top: 30px;
+          padding-bottom: 30px;
+          color: black;
+          font-weight: 600;
+        ">
+        Товары в подкатегории {{ sub_category.title }}</h1>
+      </div>
+
+      <!--Продукты категории-->
+      <div style="margin-bottom: 50px;">
+        {% for prod in products %}
+        <a href="{% url 'product_overview' prod.slug %} ">
+          <span class="product-block">
+            <div class="category-image"></div>
+            <img src="/{{ prod.img.all.0.img }}" class="category-image">
+            <div class="letter">{{ prod.title }}</div>
+            <div class="category-price">2000 <span class="valuta">₸</span></div>
+            <img src="{% static 'silkapp/star.svg' %}" alt="Rating star" class="star-rate">
+            <div class="star-num">{{ prod.rate }}</div>
+            <img src="{% static 'silkapp/comment.svg' %}" alt="Rating star" class="comment-rate">
+            <div class="comment-num">{{ prod.comment.all.count }}</div>
+          </span>
+        </a>
+        {% endfor %}
+      </div>
+      <!--Футер-->
+      <div style="
+          height: 500px;
+          border-top: 1px solid rgb(223, 223, 223);
+        "
+      >
+        <h1 style="
+          font-size: 30px;
+          padding-top: 30px;
+          padding-bottom: 30px;
+          color: black;
+          font-weight: 600;
+        ">
+        Контакты</h1>
+        
+        <!--Номер телефона-->
+        <p style="
+          font-size: 18px;
+          padding-top: 15px;
+          padding-bottom: 15px;
+          font-weight: 600;
+          color: black;
+        ">
+        +7 775 595 1185</p>
+
+        <!--Юридический адрес-->
+        <p style="
+          font-size: 18px;
+          padding-top: 15px;
+          padding-bottom: 15px;
+          font-weight: 600;
+          color: black;
+        ">
+        ИП BIZ3IN, г. Шымкент, мкр. Нурсат, 127</p>
+        <div style="margin-top: 15px; position: relative;">
+          <img src="{% static 'silkapp/zona.svg' %}" >
+          <p style="
+            color: blue;
+            font-weight: 600;
+            position: absolute;
+            top: 0; left: 70px;
+          " class="pt-root">
+          Сауда.kz - зона безопасного сервиса
+        </p>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

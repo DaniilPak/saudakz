@@ -32,4 +32,7 @@ urlpatterns = [
     path('user/mychats/addmsg/<str:username>', views.addMsg, name="addmsg"),
     # Contact button
     path('conctact/<str:username>', views.contactButton, name="contact"),
+
+    # API 
+    path('api/search', views.productSearch, name="search"),
 ]

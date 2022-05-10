@@ -40,18 +40,15 @@
           .chat-wrap {
             position: absolute;
             top: 50px;
-            left: 350px;
-            width: 800px;
+            left: 0px;
+            width: 100%;
             padding-bottom: 400px;
           }
 
           @media screen and (max-width: 900px) {
               .chat-wrap {
-              position: absolute;
-              top: 300px;
-              left: 0px;
-              width: 90%;
-              padding-bottom: 200px;
+              width: 100%;
+              padding-bottom: 0px;
             }
           }
     </style>
@@ -63,135 +60,112 @@
         {% include 'silkapp/head.html' %}
         <!--head menu-->
 
-        <div class="fat-panel">
-        
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
-                <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="{% url 'settings' %}" class="nav-link link-dark" aria-current="page">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                    Профиль
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'notifications' %}" class="nav-link link-dark" aria-current="page">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                    Уведомления <div class="red-circle"></div>
-                    </a>
-                </li>
-                {% if user.first_name == '1' %}
-                <li>
-                    <a href="{% url 'goods' %}" class="nav-link link-dark">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                    Мои товары
-                    </a>
-                </li>
-                {% endif %}
-                {% if user.first_name == '0' %}
-                <li>
-                    <a href="{% url 'bids' %}" class="nav-link link-dark">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                    Мои заявки
-                    </a>
-                </li>
-                {% endif %}
-                <li>
-                    <a href="{% url 'chatview' %}" class="nav-link active">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                    Чаты <div class="red-circle"></div>
-                    </a>
-                </li>
-                </ul>
-            </div>
+        <!--left menu-->
+        {% include 'silkapp/leftmenu.html' %}
+        <!--left menu-->
 
-            
-            <div class="chat-wrap">
+        <div class="top-panel pt-root" style="margin-top: 25px;">
+  
+          <div style="
+              position: absolute;
+              left: 25px;
+              top: 0px;
+              width: 100%;">
+              <h1 class="pt-root big" style="
+                  margin-bottom: 0px;
+                  color: black;
+                  font-weight: 600;
+                  ">Общение
+              </h1>
+
+              <div class="chat-wrap">
                   
-                    <div class="row rounded-lg overflow-hidden shadow">
-                      <!-- Users box-->
-                      <div class="col-5 px-0">
-                        <div class="bg-white">
-                  
-                          <div class="bg-gray px-4 py-2 bg-light">
-                            <p class="h5 mb-0 py-1">Последние</p>
-                          </div>
-                  
-                          <div class="messages-box">
-                            <div class="list-group rounded-0">
-                            {% for mc in mychats %}
-                              <a href="{% url 'chatuser' mc.friend2.username %}" class="list-group-item list-group-item-action 
-                              {% if usr.username == mc.friend2.username %} active text-white rounded-0 {% endif %} {% if usr.username != mc.friend2.username %}list-group-item-light rounded-0{% endif %}"> <!--list-group-item-light rounded-0-->
-                                <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                  <div class="media-body ml-4">
-                                    <div class="d-flex align-items-center justify-content-between mb-1">
-                                      <h6 class="mb-0">{{ mc.friend2.username }}</h6><small class="small font-weight-bold"></small>
-                                    </div>
-                                    <p class="font-italic mb-0 text-small">
-                                        {% if mc.friend2.first_name == '0' %}
-                                            Покупатель
-                                        {% endif %}
-                                        {% if mc.friend2.first_name == '1' %}
-                                            Продавец
-                                        {% endif %}
-                                    </p>
-                                  </div>
-                                </div>
-                              </a>
-                              {% endfor %}
-                  
-                            </div>
-                          </div>
-                        </div>
+                <div class="row rounded-lg overflow-hidden shadow">
+                  <!-- Users box-->
+                  <div class="col-5 px-0">
+                    <div class="bg-white">
+              
+                      <div class="bg-gray px-4 py-2 bg-light">
+                        <p class="h5 mb-0 py-1">Последние</p>
                       </div>
-                      <!-- Chat Box-->
-                      <div class="col-7 px-0">
-                        <div class="px-4 py-5 chat-box bg-white">
-                        {% for msg in msgs %}
-                            {% if msg.sender.username == usr.username %}
-                                <!-- Sender Message-->
-                                <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                    <div class="media-body ml-3">
-                                    <div class="bg-light rounded py-2 px-3 mb-2">
-                                        <p class="text-small mb-0 text-muted">{{ msg.text }}</p>
-                                    </div>
-                                    <p class="small text-muted">{{ msg.tstamp }}</p>
-                                    </div>
+              
+                      <div class="messages-box">
+                        <div class="list-group rounded-0">
+                        {% for mc in mychats %}
+                          <a href="{% url 'chatuser' mc.friend2.username %}" class="list-group-item list-group-item-action 
+                          {% if usr.username == mc.friend2.username %} active text-white rounded-0 {% endif %} {% if usr.username != mc.friend2.username %}list-group-item-light rounded-0{% endif %}"> <!--list-group-item-light rounded-0-->
+                            <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                              <div class="media-body ml-4">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                  <h6 class="mb-0">{{ mc.friend2.username }}</h6><small class="small font-weight-bold"></small>
                                 </div>
-                            {% endif %}
-                            {% if msg.sender.username == user.username %}
-                                <!-- Reciever Message-->
-                                <div class="media w-50 ml-auto mb-3">
-                                    <div class="media-body">
-                                    <div class="bg-primary rounded py-2 px-3 mb-2">
-                                        <p class="text-small mb-0 text-white">{{ msg.text }}</p>
-                                    </div>
-                                    <p class="small text-muted">{{ msg.tstamp }}</p>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                  
-                          
-                  
-                        </div>
-                  
-                        <!-- Typing area -->
-                        <form action="{% url 'addmsg' usr.username %}" class="bg-light" method="POST">
-                        {% csrf_token %}
-                          <div class="input-group">
-                            <input name="message" type="text" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light">
-                            <div class="input-group-append">
-                              <button id="button-addon2" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
+                                <p class="font-italic mb-0 text-small">
+                                    {% if mc.friend2.first_name == '0' %}
+                                        Покупатель
+                                    {% endif %}
+                                    {% if mc.friend2.first_name == '1' %}
+                                        Продавец
+                                    {% endif %}
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                        </form>
-                  
+                          </a>
+                          {% endfor %}
+              
+                        </div>
                       </div>
                     </div>
+                  </div>
+                  <!-- Chat Box-->
+                  <div class="col-7 px-0">
+                    <div class="px-4 py-5 chat-box bg-white">
+                    {% for msg in msgs %}
+                        {% if msg.sender.username == usr.username %}
+                            <!-- Sender Message-->
+                            <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                                <div class="media-body ml-3">
+                                <div class="bg-light rounded py-2 px-3 mb-2">
+                                    <p class="text-small mb-0 text-muted">{{ msg.text }}</p>
+                                </div>
+                                <p class="small text-muted">{{ msg.tstamp }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if msg.sender.username == user.username %}
+                            <!-- Reciever Message-->
+                            <div class="media w-50 ml-auto mb-3">
+                                <div class="media-body">
+                                <div class="bg-primary rounded py-2 px-3 mb-2">
+                                    <p class="text-small mb-0 text-white">{{ msg.text }}</p>
+                                </div>
+                                <p class="small text-muted">{{ msg.tstamp }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+              
+                      
+              
+                    </div>
+              
+                    <!-- Typing area -->
+                    <form action="{% url 'addmsg' usr.username %}" class="bg-light" method="POST">
+                    {% csrf_token %}
+                      <div class="input-group">
+                        <input name="message" type="text" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light">
+                        <div class="input-group-append">
+                          <button id="button-addon2" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
+                        </div>
+                      </div>
+                    </form>
+              
+                  </div>
                 </div>
+            </div>
 
+          </div>
+      </div>
 
-        </div>   
     </div>
 
     <script>

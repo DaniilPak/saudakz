@@ -52,7 +52,7 @@ class Product(models.Model):
     desc = models.TextField(max_length=600)
     # Rate system
     rate = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
-    comment = models.ManyToManyField(CommentNRate)
+    comment = models.ManyToManyField(CommentNRate, blank=True)
     # Owner of the product
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 

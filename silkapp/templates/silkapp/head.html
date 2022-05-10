@@ -1,18 +1,411 @@
 {% load static %}
+
+<div class="fixed-darker hide" id="fd"></div>
+
+<!--Catalog block -->
+<div id="catalog-menu" class="hide">
+    <div class="catalog-menu">
+        <img
+            id="close-menu-but"
+            src="{% static 'silkapp/close-svgrepo-com.svg' %}" 
+            style="width: 20px; cursor: pointer;
+            position: absolute; right: 25px; top: 25px;
+        "> 
+        <img src="{% static 'silkapp/sauda.svg' %}" style="
+            height: 50px;
+            width: auto;
+            position: absolute;
+            left: 50px;
+            top: 15px;"
+        >
+        <span class="pt-root" style="
+            font-size: 25px;
+            position: absolute;
+            left: 55px;
+            top: 80px;">Каталог
+        </span>
+        <div class="pt-root" style="
+            position: absolute;
+            left: 40px;
+            top: 130px;
+            font-size: 16px;
+            line-height: 18px;
+            color: #151528;
+            "
+        >
+            <ul id="myUL" style="margin-bottom: 120px;">
+                {% for a, b in all_catalogs %}
+                    <li><span class="box">{{ a }}</span>
+                        <ul class="nested">
+                        <!--Category iter-->
+                        {% for u in b %}
+                            <a href="{% url 'category_view' u.slug %}">
+                            <li><span>{{ u.title }}</span></li>
+                            </a>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+<!--Catalog block-->
+
 <div class="top-panel">
     <a href="{% url 'index' %}">
         <img src="{% static 'silkapp/sauda.svg' %}" alt="Silkapp kz logo" class="silkapp-logo">
     </a>
     <div class="mobile-menu" id="mobile-menu-button">
-        <button type="button" class="btn btn-success">Каталог</button>
     </div>
-    <div class="login-panel">
+    <div class="login-panel pt-root">
         {% if not isauth %}
-            <button type="button" class="btn btn-success" onclick="window.location='/user/sign'">Войти</button>
+        <div style="cursor: pointer;" class="on-hover-orange" onclick="window.location='/user/sign'">
+            <img src="{% static 'silkapp/avatar-man-profile-svgrepo-com.svg' %}" style="filter: invert(35%) sepia(5%) saturate(566%) hue-rotate(201deg) brightness(94%) contrast(82%);
+            width: 25px;transform: translateX(30%);" >
+            <div>
+                Войти
+            </div>
+        </div>
         {% endif %}
         {% if user.username %}
-            <button type="button" class="btn btn-warning" onclick="window.location='/user/settings'">{{ user.username }}</button>
-            <button type="button" class="btn btn-danger" onclick="window.location='/user/logout'">Выйти</button>
+
+            <span style="cursor: pointer;" class="on-hover-orange" onclick="window.location='/user/goods'">
+                <span>
+                    Разместить товар
+                </span>
+            </span>
+
+            <span style="cursor: pointer;" class="on-hover-orange" onclick="window.location='/user/bids'">
+                <span>
+                    Заказать товар
+                </span>
+            </span>
+
+            <span style="cursor: pointer;" class="on-hover-orange" onclick="window.location='/user/settings'">
+                <span>
+                    {{ user.username }}
+                </span>
+            </span>
+
+            <span style="cursor: pointer;" class="on-hover-orange" onclick="window.location='/user/notifications'">
+                <span>
+                    Уведомления
+                </span>
+            </span>
+
+            <span style="cursor: pointer;" class="on-hover-orange" onclick="window.location='/user/mychats'">
+                <span>
+                    Чат
+                </span>
+            </span>
+    
+            <span style="cursor: pointer;" class="on-hover-orange" onclick="window.location='/user/logout'">
+                <span>
+                    Выйти
+                </span>
+            </span>
+
         {% endif %}
     </div>
+
+    <!--Login panel mobile version-->
+    <div class="login-panel-version">
+        <div
+        class="pt-root"
+        style="
+            position: fixed;
+            border-top: 1px solid #b8b7b7;
+            bottom: 0px;
+            height: 80px;
+            padding-top: 55px;
+            font-size: 11px;
+            width: 100%;
+            z-index: 3;
+            display: flex;
+            background-color: #ffffff;
+        ">
+            {% if not isauth %}
+                <div style="flex: 1; text-align: center;position: relative; cursor:pointer;" onclick="window.location='/user/sign'">
+                    Разместить товар
+                    <img src="{% static 'silkapp/add-svgrepo-com.svg' %}"
+                    style="filter: invert(35%) sepia(5%) saturate(566%) hue-rotate(201deg) brightness(94%) contrast(82%);
+                    width: 25px;position: absolute;bottom:30px;left:50%;transform: translateX(-50%);"
+                    >
+                </div>
+                <div style="flex: 1; text-align: center;position: relative; cursor:pointer;" onclick="window.location='/user/sign'">
+                    Заказать товар
+                    <img src="{% static 'silkapp/catalog-svgrepo-com.svg' %}"
+                    style="filter: invert(35%) sepia(5%) saturate(566%) hue-rotate(201deg) brightness(94%) contrast(82%);
+                    width: 25px;position: absolute;bottom:30px;left:50%;transform: translateX(-50%);"
+                    >
+                </div>
+                <div style="flex: 1; text-align: center;position: relative; cursor:pointer;" onclick="window.location='/user/sign'">
+                    Войти
+                    <img src="{% static 'silkapp/avatar-man-profile-svgrepo-com.svg' %}"
+                    style="filter: invert(35%) sepia(5%) saturate(566%) hue-rotate(201deg) brightness(94%) contrast(82%);
+                    width: 25px;position: absolute;bottom:30px;left:50%;transform: translateX(-50%);"
+                    >
+                </div>
+            {% endif %}
+            {% if user.username %}
+            <div style="flex: 1; text-align: center;position: relative; cursor:pointer;" onclick="window.location='/user/goods'">
+                Разместить товар
+                <img src="{% static 'silkapp/add-svgrepo-com.svg' %}"
+                style="filter: invert(35%) sepia(5%) saturate(566%) hue-rotate(201deg) brightness(94%) contrast(82%);
+                width: 25px;position: absolute;bottom:30px;left:50%;transform: translateX(-50%);"
+                >
+            </div>
+            <div style="flex: 1; text-align: center;position: relative; cursor:pointer;" onclick="window.location='/user/bids'">
+                Заказать товар
+                <img src="{% static 'silkapp/catalog-svgrepo-com.svg' %}"
+                style="filter: invert(35%) sepia(5%) saturate(566%) hue-rotate(201deg) brightness(94%) contrast(82%);
+                width: 25px;position: absolute;bottom:30px;left:50%;transform: translateX(-50%);"
+                >
+            </div>
+            <div style="flex: 1; text-align: center;position: relative; cursor:pointer;" onclick="window.location='/user/settings'">
+                Мой профиль
+                <img src="{% static 'silkapp/avatar-man-profile-svgrepo-com.svg' %}"
+                style="filter: invert(35%) sepia(5%) saturate(566%) hue-rotate(201deg) brightness(94%) contrast(82%);
+                width: 25px;position: absolute;bottom:30px;left:50%;transform: translateX(-50%);"
+                >
+            </div>
+            <div style="flex: 1; text-align: center;position: relative; cursor:pointer;" onclick="window.location='/user/notifications'">
+                Уведомления
+                <img src="{% static 'silkapp/notification-svgrepo-com.svg' %}"
+                style="filter: invert(35%) sepia(5%) saturate(566%) hue-rotate(201deg) brightness(94%) contrast(82%);
+                width: 25px;position: absolute;bottom:30px;left:50%;transform: translateX(-50%);"
+                >
+            </div>
+            <div style="flex: 1; text-align: center;position: relative; cursor:pointer;" onclick="window.location='/user/mychats'">
+                Чат
+                <img src="{% static 'silkapp/chat-svgrepo-com.svg' %}"
+                style="filter: invert(35%) sepia(5%) saturate(566%) hue-rotate(201deg) brightness(94%) contrast(82%);
+                width: 25px;position: absolute;bottom:30px;left:50%;transform: translateX(-50%);"
+                >
+            </div>
+            <div style="flex: 1; text-align: center;position: relative; cursor:pointer;" onclick="window.location='/user/logout'">
+                Выйти
+                <img src="{% static 'silkapp/signout-svgrepo-com.svg' %}"
+                style="filter: invert(35%) sepia(5%) saturate(566%) hue-rotate(201deg) brightness(94%) contrast(82%);
+                width: 25px;position: absolute;bottom:30px;left:50%;transform: translateX(-50%);"
+                >
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
 </div>
+
+<div class="top-panel catalog-n-searchbar" style="margin-top: 25px;">
+    <div class="catalog-but pt-root">
+        <img src="{% static 'silkapp/menu-svgrepo-com.svg' %}" 
+            style="width: 20px;transform: translateY(-15%);margin-right: 5px;">
+        <span> Каталог товаров </span>
+    </div>
+
+    <!--Finder-->
+    <div class="finder pt-root">
+        <div id="search-results" class="hide" style="width: 100%;
+            min-height: 50px;
+            border: 1px solid rgb(197, 194, 194);
+            background-color: #ffffff;
+            position: absolute;
+            top: 50px;
+            padding-left: 15px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            z-index: 3;
+            
+            "> 
+                <!--Search result here-->
+            </div>
+        <input id="search-keyword" class="finder-inp" type="text" placeholder="Поиск по товарам" onkeyup="keyupfunc()" onfocusout="focusout()">
+        <img src="{% static 'silkapp/search-svgrepo-com.svg' %}"
+            style="width: 20px; position: absolute;
+            right: 0; transform: translateY(40%);
+            filter: invert(63%) sepia(81%) saturate(4689%) hue-rotate(1deg) brightness(101%) contrast(105%);">
+    </div>
+</div>
+
+<div class="top-panel catalog-n-searchbar-vis" style="margin-top: 25px;">
+    <div class="catalog-but pt-root">
+        <img src="{% static 'silkapp/menu-svgrepo-com.svg' %}" 
+            style="width: 20px;transform: translateY(0%);">
+    </div>
+
+    <!--Mobile search button-->
+    <div class="search-but-mobile pt-root" id="search-button-mobile">
+        <img src="{% static 'silkapp/search-svgrepo-com.svg' %}" 
+        style="width: 20px;transform: translateY(0%);">
+    </div>
+    
+    <!--Finder-->
+    <div class="finder pt-root">
+        <div id="search-results" class="hide" style="width: 100%;
+            min-height: 50px;
+            border: 1px solid rgb(197, 194, 194);
+            background-color: #ffffff;
+            position: absolute;
+            top: 50px;
+            padding-left: 15px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            z-index: 3;
+            "> 
+                <!--Search result here-->
+        </div>
+
+        <!--Useless below-->
+
+    </div>
+</div>
+
+<!--Search block для мобильных устройств-->
+<div 
+    id="search-block-mobile"
+    class="hide"
+    style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgb(255, 255, 255);
+        height: 100%;
+        z-index: 998;
+">
+    <div class="finder pt-root">
+        <div 
+            id="search-results-mobile" 
+            style="
+                width: 100%;
+                min-height: 50px;
+                background-color: #ffffff;
+                position: absolute;
+                top: 50px;
+                z-index: 3;
+            "> 
+                <!--Search result here для мобильных устройств-->
+            </div>
+        <input 
+            id="search-keyword-mobile"
+            class="finder-inp"
+            type="text" 
+            placeholder="Поиск по товарам" 
+            onkeyup="keyupfuncmobile()"
+        >
+        <img src="{% static 'silkapp/search-svgrepo-com.svg' %}"
+            style="
+            width: 20px;
+            position: absolute;
+            right: 0;
+            transform: translateY(40%);
+            filter: invert(63%) sepia(81%) saturate(4689%) hue-rotate(1deg) brightness(101%) contrast(105%);
+        ">
+        <span 
+            id="discard-search-mobile"
+            style="
+            position: absolute;
+            top: 12px;
+            right: -75px;
+            cursor: pointer;
+        ">Отменить</span>
+    </div>
+</div>
+
+<script>
+
+    document.getElementById('discard-search-mobile').addEventListener('click', () => {
+        document.body.style.overflow = 'scroll';
+        document.getElementById('search-block-mobile').classList.add('hide');
+    });
+
+    document.getElementById('search-button-mobile').addEventListener('click', () => {
+        document.body.style.overflow = 'hidden';
+        document.getElementById('search-block-mobile').classList.remove('hide');
+    });
+
+    // search func for mobile
+    
+    async function keyupfuncmobile() {
+
+        // query
+        let response = await fetch('/api/search?keyword=' + document.getElementById('search-keyword-mobile').value);
+
+        let text = await response.text(); // прочитать тело ответа как текст
+
+        let fixed = text.replaceAll('&quot;', '"');
+
+        let json = JSON.parse(fixed);
+
+        // converting to html
+        let html_elements = '';
+
+        json.forEach(element => {
+            html_elements += '<div class="result-search"><a href="/product/' + element.fields.slug + '">' + element.fields.title + '</a></div>';
+        });
+
+        console.log(html_elements);
+
+        document.getElementById('search-results-mobile').innerHTML = html_elements;
+
+    }
+    
+    // search func 
+    async function keyupfunc() {
+        document.getElementById('search-results').classList.remove('hide');
+
+        // query
+        let response = await fetch('/api/search?keyword=' + document.getElementById('search-keyword').value);
+
+        let text = await response.text(); // прочитать тело ответа как текст
+
+        let fixed = text.replaceAll('&quot;', '"');
+
+        let json = JSON.parse(fixed);
+
+        // converting to html
+        let html_elements = '';
+
+        json.forEach(element => {
+            html_elements += '<div class="result-search"><a href="/product/' + element.fields.slug + '">' + element.fields.title + '</a></div>';
+        });
+
+        console.log(html_elements);
+
+        document.getElementById('search-results').innerHTML = html_elements;
+
+    }
+
+    function focusout() {
+        setTimeout(() => { 
+            document.getElementById('search-results').classList.add('hide');
+        }, 200);
+    }
+
+    var fd = document.getElementById("fd");
+    
+    document.getElementsByClassName('catalog-but')[0].addEventListener('click', () => {
+        fd.classList.remove("hide");
+        document.body.style.overflow = 'hidden';
+        document.getElementById('catalog-menu').classList.remove('hide');
+    });
+
+    // for phone 
+    document.getElementsByClassName('catalog-but')[1].addEventListener('click', () => {
+        fd.classList.remove("hide");
+        document.body.style.overflow = 'hidden';
+        document.getElementById('catalog-menu').classList.remove('hide');
+    });
+
+    // close 
+
+    document.getElementById('close-menu-but').addEventListener('click', () => {
+        fd.classList.add("hide");
+        document.body.style.overflow = 'scroll';
+        document.getElementById('catalog-menu').classList.add('hide');
+    });
+    
+
+</script>

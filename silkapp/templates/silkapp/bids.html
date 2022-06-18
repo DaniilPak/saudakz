@@ -9,6 +9,11 @@
             right: 0px;
         }
 
+        .center {
+            align-items: center;
+            text-align: center;
+        }
+
         .add-comment-form {
             width: 600px;
             height: 100%;
@@ -35,6 +40,17 @@
             left: 50%;
             transform: translateX(-50%);
             padding-bottom: 100px;
+        }
+
+        .myInputStyle {
+            background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+            background-position: 10px 12px; /* Position the search icon */
+            background-repeat: no-repeat; /* Do not repeat the icon image */
+            width: 100%; /* Full-width */
+            font-size: 16px; /* Increase font-size */
+            padding: 12px 20px 12px 40px; /* Add some padding */
+            border: 1px solid #ddd; /* Add a grey border */
+            margin-bottom: 12px; /* Add some space below the input */
         }
 
 
@@ -116,15 +132,16 @@
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="biddesc" required></textarea>
                     </div>
     
-                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="К какой категории относится ваша заявка? Поиск..">
-    
-                    <ul id="myUL">
-                        {% for c in cats %}
-                            <li><a href="#"><input type="radio" name="bidtype" value="{{ c.slug }}">  {{ c.title }}</a></li>
+                    <select type="text" id="myInput" name="bidtype" >
+                        <option disabled selected value> -- Категория -- </option>
+                        {% for category in categories  %}
+                            <option value="{{ category.slug}}">{{ category.title }}</option>
                         {% endfor %}
-                    </ul>
+                    </select>
     
-                    <button type="submit" class="btn btn-success r-p-b">Подтвердить</button>
+                    <div class="center">
+                        <button type="submit" class="btn btn-success r-p-b">Подтвердить</button>
+                    </div>
                     
                 </form>
             </div>
@@ -140,24 +157,6 @@
         <!--left menu-->
 
         <div class="top-panel pt-root" style="margin-top: 25px;">
-            <!--Links
-            <div>
-                <a href="{% url 'settings' %}" class="nav-link active" aria-current="page">
-                Профиль
-                <a href="{% url 'notifications' %}" class="nav-link link-dark" aria-current="page">
-                Уведомления
-                </a>
-                <a href="{% url 'goods' %}" class="nav-link link-dark">
-                Мои товары
-                </a>
-                <a href="{% url 'bids' %}" class="nav-link link-dark">
-                Мои заявки
-                </a>
-                <a href="{% url 'chatview' %}" class="nav-link link-dark">
-                Чаты
-                </a>
-            </div>
-            -->
 
             <!--right block-->
             <div style="
@@ -220,28 +219,7 @@
             fd.classList.remove("hide");
             acf.classList.remove("hide");
         });
-
-    // tree view
-
-    function myFunction() {
-        // Declare variables
-        var input, filter, ul, li, a, i, txtValue;
-        input = document.getElementById('myInput');
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("myUL");
-        li = ul.getElementsByTagName('li');
-      
-        // Loop through all list items, and hide those who don't match the search query
-        for (i = 0; i < li.length; i++) {
-          a = li[i].getElementsByTagName("a")[0];
-          txtValue = a.textContent || a.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-          } else {
-            li[i].style.display = "none";
-          }
-        }
-    }
+    
 
 </script>
 {% endblock content %}

@@ -195,12 +195,16 @@
         <div class="product-price">{{ product.price }}<span class="valuta">₸</span></div>
         <div class="product-desc">{{ product.title }}</div>
         <div class="product-connect">
+          <a href="{% url 'profile' product.owner.username %}">
+            <button type="button" class="btn btn-success">Профиль продавца</button>
+          </a>
+
           <a href="{% url 'contact' product.owner.username %}">
             <button type="button" class="btn btn-primary">Связаться</button>
           </a>
         </div>
         <div class="product-owner-phone">Телефон продавца: <a href="tel:{{ product.owner.last_name }} ">{{ product.owner.last_name }}</a></div>
-        <div class="product-owner-email">Email продавца: <a href="tel:{{ product.owner.username }} ">{{ product.owner.username }}</a></div>
+        <div class="product-owner-email">Email продавца: <a href="mailto:{{ product.owner.username }} ">{{ product.owner.username }}</a></div>
       {% endif %}
         <div class="product-rate">
           <svg id="stars" style="display: none;" version="1.1">
@@ -297,8 +301,8 @@
         <div class="product-comments">
           Отзывы({{ commentlength }})
         </div>
+
         <div class="wrap-comment">
-          
           {% for comment in product.comment.all %}
           <div class="comment">
             <div class="comment-rate">
@@ -310,8 +314,8 @@
             <div class="comment-desc">{{ comment.text }}</div>
           </div>
           {% endfor %}
-          
         </div>
+
     </div>
 
   </div>

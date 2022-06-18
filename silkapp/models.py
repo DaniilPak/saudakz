@@ -1,5 +1,6 @@
 
 
+from statistics import mode
 from django.db import models
 
 # AUTH MODEL 
@@ -13,12 +14,14 @@ from pytz import timezone
 # Main catalog which contains categories related to this catalog only!!!
 
 class Catalog(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
 
     def __str__(self):
         return self.title
 
 class Category(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True)
@@ -27,6 +30,7 @@ class Category(models.Model):
         return '%s %s %s' % (self.title, ' relates to catalog: ', self.catalog.title)
 
 class SubCategory(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True)
@@ -61,6 +65,13 @@ class Product(models.Model):
 
 class ImageInstance(models.Model):
     img = CharField()
+
+# Users Rate
+
+class UserData(models.Model):
+    owner = models.ForeignKey(User, models.CASCADE)
+    rate = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
+    commentnrate = models.ManyToManyField(CommentNRate, blank=True)
 
 # Bid 
 class Bid(models.Model):

@@ -19,7 +19,10 @@
 
     <style>
 
-    /*Design code ---->*/
+    .center {
+      align-items: center;
+      text-align: center;
+    }
 
     .login-panel-version {
       display: none;
@@ -474,10 +477,6 @@
         left: var(--product-left-all);  
     }
 
-    .product-connect:hover {
-        background-color: #fc7c13;
-    }
-
     .product-desc {
         position: absolute;
         top: 370px;
@@ -908,8 +907,7 @@
       }
 
       .big-right-banner {
-        width: 24%;
-        background-color: black;
+        width: 23%;
         position: absolute;
         top: 0;
         right: 0;
@@ -917,6 +915,20 @@
 
       .adaptive-mobile {
         margin-top: 0px;
+      }
+
+      @media screen and (max-width: 1300px) {
+        .product-owner-phone {
+            top: 340px;
+        }
+
+        .product-owner-email {
+          top: 420px;
+        }
+
+        .product-desc {
+          top: 470px;
+        }
       }
 
       @media screen and (max-width: 900px) {

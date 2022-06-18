@@ -1,0 +1,151 @@
+{% extends 'silkapp/base.html' %}
+{% block content %}
+{% load static %}
+    <title>{{ title }}</title>
+    <!--<link rel="stylesheet" href="{% static 'silkapp/style.css' %}"> -->
+    <style>
+        .profile-stars {
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="all">
+    <!--head menu-->
+    {% include 'silkapp/head.html' %}
+    <!--head menu-->
+
+    <!--left menu-->
+    {% include 'silkapp/leftmenu.html' %}
+    <!--left menu-->
+
+    <div class="top-panel pt-root" style="margin-top: 25px;">
+        
+        <div style="
+            position: absolute;
+            left: 25px;
+            top: 0px;
+            width: 60%;">
+            <h1 class="pt-root big" style="
+                margin-bottom: 25px;
+                color: black;
+                font-weight: 600;
+                ">Просмотр профиля {{ profile.username }}
+            </h1>
+            <div> Никнейм: {{ profile.username }} </div>
+            <br>
+            <div> Никнейм: {{ profile.first_name }} </div>
+            <br>
+            <div> Номер телефона: {{ profile.last_name }} </div>
+
+            <!--Отзывы-->
+            <div class="profile-stars">
+                <svg id="stars" style="display: none;" version="1.1">
+                <symbol id="stars-full-star" viewBox="0 0 102 18">
+                    <path d="M9.5 14.25l-5.584 2.936 1.066-6.218L.465 6.564l6.243-.907L9.5 0l2.792 5.657 6.243.907-4.517 4.404 1.066 6.218" />
+                </symbol>
+                
+                <symbol id="stars-half-star" viewBox="0 0 102 18">
+                    <path d="M9.5 14.25l-5.584 2.936 1.066-6.218L.465 6.564l6.243-.907L9.5 0l2.792" fill="#e9ba26" />
+                </symbol>
+                
+                <symbol id="stars-all-star" viewBox="0 0 102 18">
+                    <use xlink:href="#stars-full-star" />
+                    <use xlink:href="#stars-full-star" transform="translate(21)" />
+                    <use xlink:href="#stars-full-star" transform="translate(42)" />
+                    <use xlink:href="#stars-full-star" transform="translate(63)" />
+                    <use xlink:href="#stars-full-star" transform="translate(84)" />
+                </symbol>
+                
+                <symbol id="stars-0-0-star" viewBox="0 0 102 18">
+                    <use xlink:href="#stars-all-star" fill="#9b9b9b" />
+                </symbol>
+                
+                <symbol id="stars-0-5-star" viewBox="0 0 102 18">
+                    <use xlink:href="#stars-0-0-star" />
+                    <use xlink:href="#stars-half-star" />
+                </symbol>
+                
+                <symbol id="stars-1-0-star" viewBox="0 0 102 18">
+                    <use xlink:href="#stars-0-0-star" />
+                    <use xlink:href="#stars-full-star" fill="#e9ba26" />
+                </symbol>
+                
+                <symbol id="stars-1-5-star" viewBox="0 0 102 18">
+                    <use xlink:href="#stars-1-0-star" />
+                    <use xlink:href="#stars-half-star" transform="translate(21)" />
+                </symbol>
+                
+                <symbol id="stars-2-0-star" viewBox="0 0 102 18">
+                    <use xlink:href="#stars-1-0-star" />
+                    <use xlink:href="#stars-full-star" fill="#e9ba26" transform="translate(21)" />
+                </symbol>
+                
+                <symbol id="stars-2-5-star" viewBox="0 0 102 18">
+                    <use xlink:href="#stars-2-0-star" />
+                    <use xlink:href="#stars-half-star" transform="translate(42)" />
+                </symbol>
+                
+                <symbol id="stars-3-0-star" viewBox="0 0 102 18">
+                    <use xlink:href="#stars-2-0-star" />
+                    <use xlink:href="#stars-full-star" fill="#e9ba26" transform="translate(42)" />
+                </symbol>
+                
+                <symbol id="stars-3-5-star" viewBox="0 0 102 18">
+                    <use xlink:href="#stars-3-0-star" />
+                    <use xlink:href="#stars-half-star" transform="translate(63)" />
+                </symbol>
+                
+                <symbol id="stars-4-0-star" viewBox="0 0 102 18">
+                    <use xlink:href="#stars-3-0-star" />
+                    <use xlink:href="#stars-full-star" fill="#e9ba26" transform="translate(63)" />
+                </symbol>
+                
+                <symbol id="stars-4-5-star" viewBox="0 0 102 18">
+                    <use xlink:href="#stars-4-0-star" />
+                    <use xlink:href="#stars-half-star" transform="translate(84)" />
+                </symbol>
+                
+                <symbol id="stars-5-0-star" viewBox="0 0 102 18">
+                    <use xlink:href="#stars-all-star" fill="#e9ba26" />
+                </symbol>
+                </svg>
+                
+                <!--Change stars here "5-0" is max-->
+                <main id="main">
+                    <svg class="icon">
+                        <use xlink:href="#stars-{{ frate }}-{{ srate }}-star">
+                    </svg>
+                    <div class="p-r">{{ userdata.rate }}</div>
+                </main>
+            </div>
+
+            <h1 class="pt-root big" style="
+                margin-top: 40px;
+                color: black;
+                font-weight: 600;
+                ">Отзывы
+            </h1>
+            <!--Отзывы-->
+            <div style="padding-bottom: 200px;">
+                {% for comment in userdata.commentnrate.all %}
+                <div class="comment">
+                  <div class="comment-rate">
+                    <svg class="icon">
+                      <use xlink:href="#stars-{{ comment.rate }}-0-star">
+                    </svg>
+                  </div>
+                  <div class="comment-author">{{ comment.author }}</div>
+                  <div class="comment-desc">{{ comment.text }}</div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+    
+</div>
+
+{% endblock content %}

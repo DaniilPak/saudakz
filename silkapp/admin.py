@@ -5,7 +5,7 @@ from .models import *
 
 admin.site.register(Catalog)
 admin.site.register(Category)
-# admin.site.register(SubCategory)
+admin.site.register(SubCategory)
 admin.site.register(Product)
 admin.site.register(ProductImage)
 admin.site.register(CommentNRate)
@@ -14,3 +14,4 @@ admin.site.register(Bid)
 admin.site.register(Notification)
 admin.site.register(ChatFriends)
 admin.site.register(ChatMessage)
+admin.site.register(UserData)

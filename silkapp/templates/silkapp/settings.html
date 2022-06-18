@@ -19,25 +19,6 @@
     <!--left menu-->
 
     <div class="top-panel pt-root" style="margin-top: 25px;">
-
-        <!--
-        <div>
-            <a href="{% url 'settings' %}" class="nav-link active" aria-current="page">
-            Профиль
-            <a href="{% url 'notifications' %}" class="nav-link link-dark" aria-current="page">
-            Уведомления
-            </a>
-            <a href="{% url 'goods' %}" class="nav-link link-dark">
-            Мои товары
-            </a>
-            <a href="{% url 'bids' %}" class="nav-link link-dark">
-            Мои заявки
-            </a>
-            <a href="{% url 'chatview' %}" class="nav-link link-dark">
-            Чаты
-            </a>
-        </div>
-        -->
         
         <div style="
             position: absolute;
@@ -51,7 +32,9 @@
                 ">Профиль
             </h1>
             <div> Никнейм: {{ user.username }} </div>
+            <br>
             <div> Никнейм: {{ user.first_name }} </div>
+            <br>
             <div> Номер телефона: {{ user.last_name }} </div>
         </div>
     </div>

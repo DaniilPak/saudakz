@@ -35,4 +35,9 @@ urlpatterns = [
 
     # API 
     path('api/search', views.productSearch, name="search"),
+    path('api/choosecategory', views.chooseCategory, name="choosecategory"),
+    path('api/choosesubcategory', views.chooseSubCategory, name="choosesubcategory"),
+
+    # Profile
+    path('profile/<str:username>', views.profile, name="profile"),
 ]
